@@ -2,7 +2,6 @@ import java.util.Random;
 
 public class SimulationDriver 
 {
-	
 	public static void main(String[] args){
 		
 		Random rand = new Random();
@@ -10,14 +9,14 @@ public class SimulationDriver
 		//Randomize number of students & Question Type
 		int numberOfStudents = rand.nextInt(55);
 		Question.questionType type = Question.questionType.values()[rand.nextInt(2)];
-		
-		System.out.println("Welcome to CS356 IVOTESERVICE");
-		System.out.println("Number of Students: " + numberOfStudents);
-		
-		//Create student database and IVoteService
+			
+		//Create student database and IVoteService & Question instances
 		Student studentDatabase[] = new Student[numberOfStudents];
 		IVoteService session;
 		Question question;
+		
+		//Welcoming Message
+		System.out.println("\"Welcome to CS356 IVOTESERVICE\"\n");
 		
 		if(type == Question.questionType.MULTIPLE_CHOICE){
 			question = new multipleChoice();
@@ -40,15 +39,16 @@ public class SimulationDriver
 
 				int currentAnswer = rand.nextInt(4);
 				studentDatabase[each].setAnswer(currentAnswer);
-				session.acceptAllSubmissions(currentAnswer);
+				session.acceptAllSubmissions(studentDatabase[each].getAnswer());
 			}
 			else{
 				int currentAnswer = rand.nextInt(2);
 				studentDatabase[each].setAnswer(currentAnswer);
-				session.acceptAllSubmissions(currentAnswer);
+				session.acceptAllSubmissions(studentDatabase[each].getAnswer());
 			}
 		}
 		
+		System.out.println("Number of Students: " + numberOfStudents);
 		session.displayAllSubmissions();
 	}
 }

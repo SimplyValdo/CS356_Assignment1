@@ -6,7 +6,9 @@ public interface Question
         SINGLE_CHOICE
     }
 	
-	public int setRandomAnswer(int num);
+	public int setAnswer(int num);
 	public questionType getType();
+	public int[] getDatabase();
+	
 	
 }

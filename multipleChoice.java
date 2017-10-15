@@ -2,19 +2,25 @@
 public class multipleChoice implements Question
 {
 
-	private int[] databaseAnswers;
+	private int[] databaseMC;
 	
 	public multipleChoice()
 	{
-		databaseAnswers = new int[4];
+		databaseMC = new int[4];
+	}
+	
+	@Override
+	public int[] getDatabase() {
+		return databaseMC;
 	}
 
 	@Override
-	public int setRandomAnswer(int randomIndex)
+	public int setAnswer(int randomIndex)
 	{
-		return databaseAnswers[randomIndex];
+		return databaseMC[randomIndex]++;
 	}
 	
+	@Override
 	public questionType getType()
 	{
 		return questionType.MULTIPLE_CHOICE;

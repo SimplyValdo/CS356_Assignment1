@@ -1,18 +1,22 @@
 
 public class singleChoice implements Question
 {
-	
-	private int[] databaseAnswers;
+	private int[] databaseSC;
 	
 	public singleChoice()
 	{
-		databaseAnswers = new int[2];
+		databaseSC = new int[2];
 	}
 	
 	@Override
-	public int setRandomAnswer(int randomIndex)
+	public int[] getDatabase() {
+		return databaseSC;
+	}
+
+	@Override
+	public int setAnswer(int randomIndex)
 	{
-		return databaseAnswers[randomIndex];
+		return databaseSC[randomIndex]++;
 	}
 
 	@Override
@@ -20,6 +24,4 @@ public class singleChoice implements Question
 		
 		return questionType.SINGLE_CHOICE;
 	}
-	
-
 }
