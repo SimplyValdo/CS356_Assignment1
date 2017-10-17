@@ -1,8 +1,10 @@
 import java.util.HashMap;
+import java.util.Map;
+
 public class IVoteService 
 {
 	private Question question;
-	private HashMap<String,Integer> students;
+	private Map<String,Integer> students;
 	
 	public IVoteService(Question question)
 	{

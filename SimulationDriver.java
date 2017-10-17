@@ -10,8 +10,7 @@ public class SimulationDriver
 		int numberOfSubmissions = rand.nextInt(56);
 		Question.questionType type = Question.questionType.values()[rand.nextInt(2)];
 			
-		//Create student database and IVoteService & Question instances
-		//Student studentDatabase[] = new Student[numberOfStudents];
+		//Create IVoteService & Question instances
 		IVoteService session;
 		Question question;
 		
