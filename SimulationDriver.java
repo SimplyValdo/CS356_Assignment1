@@ -7,17 +7,18 @@ public class SimulationDriver
 		Random rand = new Random();
 		
 		//Randomize number of students & Question Type
-		int numberOfStudents = rand.nextInt(55);
+		int numberOfSubmissions = rand.nextInt(56);
 		Question.questionType type = Question.questionType.values()[rand.nextInt(2)];
 			
 		//Create student database and IVoteService & Question instances
-		Student studentDatabase[] = new Student[numberOfStudents];
+		//Student studentDatabase[] = new Student[numberOfStudents];
 		IVoteService session;
 		Question question;
 		
 		//Welcoming Message
 		System.out.println("\"Welcome to CS356 IVOTESERVICE\"\n");
 		
+		//Instantiate a question object depending on type
 		if(type == Question.questionType.MULTIPLE_CHOICE){
 			question = new multipleChoice();
 			session = new IVoteService(question);
@@ -31,24 +32,31 @@ public class SimulationDriver
 			System.out.println("Question Type: SINGLE CHOICE");
 		}
 		
-		for(int each = 0; each < numberOfStudents; each++){
+		//Iterate through all the submissions 
+		for(int each = 0; each < numberOfSubmissions; each++){
 		
-			studentDatabase[each] = new Student(Integer.toString(each));
+			//Randomize a student ID (Possible duplicates)
+			int randomStudentID = rand.nextInt(25);
 			
+			//Depending on question type, select an answer for current studentID
 			if(type == Question.questionType.MULTIPLE_CHOICE){
 
+				//Multiple choice answer
 				int currentAnswer = rand.nextInt(4);
-				studentDatabase[each].setAnswer(currentAnswer);
-				session.acceptAllSubmissions(studentDatabase[each].getAnswer());
+				session.submit(new Student(randomStudentID+"", currentAnswer));
 			}
 			else{
+				
+				//Single choice answer
 				int currentAnswer = rand.nextInt(2);
-				studentDatabase[each].setAnswer(currentAnswer);
-				session.acceptAllSubmissions(studentDatabase[each].getAnswer());
+				session.submit(new Student(randomStudentID+"", currentAnswer));
 			}
 		}
 		
-		System.out.println("Number of Students: " + numberOfStudents);
+		//Display output
+		System.out.println("Number of Submissions: " + numberOfSubmissions);
+		System.out.println("Number of Students: " + session.getNumberOfUniqueStudents());
 		session.displayAllSubmissions();
+		
 	}
 }

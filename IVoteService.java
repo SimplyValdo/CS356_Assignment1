@@ -1,40 +1,37 @@
-
+import java.util.HashMap;
 public class IVoteService 
 {
 	private Question question;
+	private HashMap<String,Integer> students;
 	
 	public IVoteService(Question question)
 	{
 		this.question = question;
+		this.students =  new HashMap<>();
 	}
 	
-	public void acceptAllSubmissions(int index){
-		
-		if(question.getType() == Question.questionType.MULTIPLE_CHOICE)
-			question.setAnswer(index);
+	//Receive an answer from a student
+	public void submit(Student a){
+
+		//Check if student already submitted before.
+		if(students.containsKey(a.getUniqueID()))
+			question.changeAnswer(students.get(a.getUniqueID()),a.getAnswer());
 		else
-			question.setAnswer(index);
+			question.setAnswer(a.getAnswer());
+		
+		//Save answer from specific student on HashMap
+		students.put(a.getUniqueID(), a.getAnswer());
 	}
 	
-	public void displayAllSubmissions()
-	{
-		System.out.println("\nTotal Submissions: ");
+	//Display all submissions
+	public void displayAllSubmissions(){
 		
-		if(question.getType() == Question.questionType.MULTIPLE_CHOICE){
-			
-			int[] MCResults = question.getDatabase();
-			
-			System.out.println("A: " + MCResults[0]);
-			System.out.println("B: " + MCResults[1]);
-			System.out.println("C: " + MCResults[2]);
-			System.out.println("D: " + MCResults[3]);
-		}
-		else{
-			
-			int[] SCResults = question.getDatabase();
-			
-			System.out.println("Right: " + SCResults[0]);
-			System.out.println("Wrong: " + SCResults[1]);
-		}
+		System.out.println("\nTotal Submissions");
+		System.out.println(question);	
+	}
+	
+	//Get number of students
+	public int getNumberOfUniqueStudents(){
+		return students.size();
 	}
 }
